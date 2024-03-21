@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">pr5</string>
+
+    <string name="fragment_main_text_view_text">Input product name</string>
+    <string name="fragment_main_egit_text_hint">Name product</string>
+    <string name="fragment_main_button_text">Choose the amount</string>
+
+    <string name="fragment_first_text_view_1_text">You have chosen this product :</string>
+    <string name="fragment_first_text_view_3_text">Input the amount of this product</string>
+    <string name="fragment_first_egit_text_hint">Amount of product </string>
+    <string name="fragment_first_button_text">Buy</string>
+
+    <string name="fragment_second_text_view_text">Your order is:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
