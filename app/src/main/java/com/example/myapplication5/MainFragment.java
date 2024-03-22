@@ -37,14 +37,14 @@ public class MainFragment extends Fragment {
         main_fragment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String good_name = main_fragment_edit_text.getText().toString();
+                String product_name = main_fragment_edit_text.getText().toString();
 
-                if (good_name.length() > 0 && !isNumeric(good_name)) {
+                if (product_name.length() > 0 && !isNumeric(product_name)) {
                     ArrayList<String> message =  new ArrayList<String>();
-                    message.add(good_name);
+                    message.add(product_name);
 
                     Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("goodName",  message);
+                    bundle.putStringArrayList("productName",  message);
                     Navigation.findNavController(view).navigate(R.id.action_mainFragment_to_firstFragment, bundle);
                 } else {
                     main_fragment_edit_text.setText("");

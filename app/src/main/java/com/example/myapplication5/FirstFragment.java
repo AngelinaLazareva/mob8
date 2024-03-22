@@ -35,22 +35,22 @@ public class FirstFragment extends Fragment {
         first_fragment_text_view = (TextView) getActivity().findViewById(R.id.fragment_first_text_view2);
         first_fragment_edit_text = (EditText) getActivity().findViewById(R.id.fragment_first_edit_text);
 
-        String good_name = parseInputsGoods(this.getArguments().getStringArrayList("goodName"),
-                typeForGood.GOOD_NAME);
-        first_fragment_text_view.setText(good_name);
+        String product_name = parseInputsProducts(this.getArguments().getStringArrayList("productName"),
+                products.PRODUCT_NAME);
+        first_fragment_text_view.setText(product_name);
 
         first_fragment_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String good_amount = first_fragment_edit_text.getText().toString();
+                String product_amount = first_fragment_edit_text.getText().toString();
 
-                if (good_amount.length() > 0 && isNumeric(good_amount)) {
+                if (product_amount.length() > 0 && isNumeric(product_amount)) {
                     ArrayList<String> message =  new ArrayList<String>();
-                    message.add(good_name);
-                    message.add(good_amount);
+                    message.add(product_name);
+                    message.add(product_amount);
 
                     Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("goodNameGoodAmount",  message);
+                    bundle.putStringArrayList("prodNameAmount",  message);
                     Navigation.findNavController(view).navigate(R.id.action_firstFragment_to_secondFragment, bundle);
                 } else {
                     first_fragment_edit_text.setText("");
@@ -59,11 +59,11 @@ public class FirstFragment extends Fragment {
             }
         });
     }
-    public static String parseInputsGoods(ArrayList<String> array, typeForGood type) {
+    public static String parseInputsProducts(ArrayList<String> array, products type) {
         switch (type) {
-            case GOOD_NAME:
+            case PRODUCT_NAME:
                 return array.get(0);
-            case GOOD_AMOUNT:
+            case PRODUCT_AMOUNT:
                 return array.get(1);
             default:
                 return null;

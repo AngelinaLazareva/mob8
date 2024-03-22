@@ -11,6 +11,8 @@
     <string name="fragment_first_button_text">Buy</string>
 
     <string name="fragment_second_text_view_text">Your order is:</string>
+    <string name="fragment_second_button">BUTTON</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
