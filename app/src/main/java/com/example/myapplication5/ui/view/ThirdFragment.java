@@ -1,4 +1,4 @@
-package com.example.myapplication5.ui;
+package com.example.myapplication5.ui.view;
 
 import android.os.Bundle;
 
@@ -25,8 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication5.model.products;
-import com.example.myapplication5.repository.productInterf;
-import com.example.myapplication5.viewModels.orderViewModel;
+import com.example.myapplication5.viewModels.OrderViewModel;
 
 
 import java.util.List;
@@ -98,6 +97,8 @@ public class ThirdFragment extends Fragment {
     }
 
     Button addMoreProductsButton;
+    Button returnToMainFragment;
+    Button deleteProductsButton;
 
     public ThirdFragment() {
         super(R.layout.fragment_third);
@@ -109,17 +110,20 @@ public class ThirdFragment extends Fragment {
 
         NavController navController = Navigation.findNavController(view);
 
+        returnToMainFragment = (Button) getActivity().findViewById(R.id.third_fragment_button);
         addMoreProductsButton = (Button) getActivity().findViewById(R.id.third_fragment_button);
+        deleteProductsButton = (Button) getActivity().findViewById(R.id.third_fragment_button_clean);
 
         RecyclerView itemsList = getActivity().findViewById(R.id.third_fragment_recycler_view);
 
-        orderViewModel orderView_Model = new ViewModelProvider(getActivity()).get(orderViewModel.class);
+        OrderViewModel orderViewModel = new ViewModelProvider(getActivity()).get(OrderViewModel.class);
 
-        orderView_Model.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+        orderViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
             List<products> items = uiState.getOrderedPositions();
 
             if (items == null || items.size() == 0) {
                 itemsList.setVisibility(View.GONE);
+                deleteProductsButton.setVisibility(View.GONE);
                 Toast.makeText(getActivity(), "There is no ordered products", Toast.LENGTH_SHORT).show();
             }
             else {
@@ -134,8 +138,8 @@ public class ThirdFragment extends Fragment {
                 adapter.setOnClick(new SecondFragmentRecyclerViewAdapter.OnItemClicked() {
                     @Override
                     public void onItemClick(int position) {
-                        if (orderView_Model.getUiState().getValue() != null) {
-                            products product = (products) orderView_Model.getUiState().getValue().getProduct(position);
+                        if (orderViewModel.getUiState().getValue() != null) {
+                            products product = (products) orderViewModel.getUiState().getValue().getProduct(position);
                             Bundle bundle = new Bundle();
                             bundle.putSerializable("Product", product);
                             navController.navigate(R.id.action_thirdFragment_to_fourthFragment, bundle);
@@ -153,5 +157,21 @@ public class ThirdFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.action_thirdFragment_to_firstFragment);
             }
         });
+        returnToMainFragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_thirdFragment_to_mainFragment);
+            }
+        });
+        deleteProductsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                itemsList.setVisibility(View.GONE);
+                orderViewModel.getUiState().getValue().cleanDatabase();
+                deleteProductsButton.setVisibility(View.GONE);
+                Toast.makeText(getActivity(), "There is no purchased products", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }

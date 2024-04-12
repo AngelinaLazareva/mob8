@@ -1,4 +1,4 @@
-package com.example.myapplication5.ui;
+package com.example.myapplication5.ui.view;
 
 import android.os.Bundle;
 

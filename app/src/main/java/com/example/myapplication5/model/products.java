@@ -8,8 +8,10 @@ import java.io.Serializable;
 public class products implements Serializable {
         private String productName;
         private String productAmount;
+        private int id;
 
-        public products() {}
+
+    public products() {}
         public products(String productName, String productAmount) {
             this.productName = productName;
             this.productAmount = productAmount;
@@ -29,6 +31,13 @@ public class products implements Serializable {
 
         public void setProductAmount(String productAmount) {
             this.productAmount = productAmount;
+        }
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
         }
     }
 

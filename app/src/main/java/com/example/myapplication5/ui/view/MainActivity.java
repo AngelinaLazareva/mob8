@@ -1,11 +1,11 @@
-package com.example.myapplication5.ui;
+package com.example.myapplication5.ui.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
-import com.example.myapplication5.viewModels.productViewModel;
-import com.example.myapplication5.viewModels.orderViewModel;
+import com.example.myapplication5.viewModels.ProductViewModel;
+import com.example.myapplication5.viewModels.OrderViewModel;
 
 import com.example.myapplication5.R;
 
@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        productViewModel productView_Model = new ViewModelProvider(this).get(productViewModel.class);
-        orderViewModel orderView_Model = new ViewModelProvider(this).get(orderViewModel.class);
+        ProductViewModel productView_Model = new ViewModelProvider(this).get(ProductViewModel.class);
+        OrderViewModel orderView_Model = new ViewModelProvider(this).get(OrderViewModel.class);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication5.ui;
+package com.example.myapplication5.ui.view;
 
 import android.os.Bundle;
 
@@ -18,10 +18,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.example.myapplication5.model.products;
-import com.example.myapplication5.viewModels.productViewModel;
-import com.example.myapplication5.viewModels.orderViewModel;
+import com.example.myapplication5.viewModels.ProductViewModel;
+import com.example.myapplication5.viewModels.OrderViewModel;
 
 import com.example.myapplication5.data_pac.Orders;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class SecondFragment extends Fragment {
@@ -47,9 +50,9 @@ public class SecondFragment extends Fragment {
 
         second_fragment_text_view = getActivity().findViewById(R.id.fragment_second_text_view2);
 
-        productViewModel productView_Model = new ViewModelProvider(getActivity()).get(productViewModel.class);
-        orderViewModel orderView_Model = new ViewModelProvider(getActivity()).get(orderViewModel.class);
-        productView_Model.getUiState().observe(getViewLifecycleOwner(), uiState -> {
+        ProductViewModel productViewModel = new ViewModelProvider(getActivity()).get(ProductViewModel.class);
+        OrderViewModel orderViewModel = new ViewModelProvider(getActivity()).get(OrderViewModel.class);
+        productViewModel.getUiState().observe(getViewLifecycleOwner(), uiState -> {
             String info = uiState.getCurrentProductName() + " " + uiState.getCurrentProductAmount();
             second_fragment_text_view.setText(info);
         });
@@ -57,8 +60,18 @@ public class SecondFragment extends Fragment {
         secondFragmentButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderView_Model.addProductToOrder(productView_Model.getUiState().getValue().getProduct());
-                productView_Model.inputProductParameters(null, null);
+                if (Objects.requireNonNull(orderViewModel.getUiState().getValue()).getOrderedPositions() == null)
+                    orderViewModel.getUiState().getValue().createDatabase(getActivity().getApplicationContext(), null);
+
+                ArrayList<products> products = orderViewModel.getUiState().getValue().getOrderedPositions();
+                int id = 0;
+                if (products != null) id = products.size();
+
+                products productToInput = productViewModel.getUiState().getValue().getProduct();
+                productToInput.setId(id);
+
+                orderViewModel.addProductToOrder(productToInput);
+                productViewModel.inputProductParameters(null, null);
 
                 Navigation.findNavController(view).navigate(R.id.action_secondFragment_to_thirdFragment);
             }

@@ -1,35 +1,45 @@
 package com.example.myapplication5.repository;
 
+import android.content.Context;
+
+import com.example.myapplication5.data_source.SP.SharedPreferencesDataSource;
 import com.example.myapplication5.data_source.product_dataSource;
 import com.example.myapplication5.model.products;
 
 import java.io.Serializable;
 
 public class productRep implements productInterf, Serializable {
-    private product_dataSource currentProductManager;
+    private SharedPreferencesDataSource currentProductInfoManager;
     public productRep() {}
-    public productRep(String goodName, String goodAmount) {
-        currentProductManager = new product_dataSource(new products(goodName, goodAmount));
+
+    public void createCurrentInfoManager(Context context) {
+        if (currentProductInfoManager == null)
+            currentProductInfoManager = new SharedPreferencesDataSource(context);
     }
+
     public String getCurrentProductName() {
-        return currentProductManager.getCurrentProduct().getProductName();
+        if (currentProductInfoManager == null) return null;
+        else return currentProductInfoManager.getStringRecord("R.string.ProductName");
     }
 
     public String getCurrentProductAmount() {
-        return currentProductManager.getCurrentProduct().getProductAmount();
+        if (currentProductInfoManager == null) return null;
+        else return currentProductInfoManager.getStringRecord("R.string.ProductAmount");
     }
 
     public void setCurrentProductName(String productName) {
-        products currentProduct = currentProductManager.getCurrentProduct();
-        currentProduct.setProductName(productName);
-        currentProductManager.SetCurrentProduct(currentProduct);
+        if (currentProductInfoManager == null) return;
+        else currentProductInfoManager.writeContent("ProductName", productName);
     }
     public void setCurrentProductAmount(String productAmount) {
-        products currentProduct = currentProductManager.getCurrentProduct();
-        currentProduct.setProductAmount(productAmount);
-        currentProductManager.SetCurrentProduct(currentProduct);
+        if (currentProductInfoManager == null) return;
+        else currentProductInfoManager.writeContent("ProductAmount", productAmount);
     }
     public products getProduct() {
-        return currentProductManager.getCurrentProduct();
+        if (currentProductInfoManager == null) return null;
+        else return new products(
+                currentProductInfoManager.getStringRecord("R.string.ProductName"),
+                currentProductInfoManager.getStringRecord("R.string.ProductAmount")
+        );
     }
 }

@@ -16,11 +16,18 @@
     <string name="fragment_second_button_text2">Yes</string>
 
     <string name="fragment_third_button_text">Add more </string>
+    <string name="fragment_third_button_to_main_fragment">To main Fragment </string>
 
     <string name="first_fragment_list_view_item_text_view_text1">Product name:</string>
     <string name="first_fragment_list_view_item_text_view_text2">Price:</string>
     <string name="fragment_fourth_text_view_text">Product description:</string>
     <string name="fragment_fourth_button_text">Return to the list</string>
+
+
+    <string name="fragment_main_button_text3">Save in AppSpecificDS</string>
+    <string name="fragment_main_button_text4">Save in CommonFilesDS</string>
+    <string name="fragment_third_button_clean_text">Clean</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
